@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:wettherapp/screens/location_screen.dart';
 import 'package:wettherapp/services/location.dart';
-import 'package:wettherapp/services/location.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:wettherapp/services/networking.dart';
 
 const apikey = "7b114153676f091855ed68761b553c29";
@@ -32,10 +30,24 @@ class _LoadingScreenState extends State<LoadingScreen> {
         "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apikey");
 
     var wetherdata = await netwoekhelper.getdata();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return LocationScreen();
+      }),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: SpinKitRing(
+          color: Colors.red,
+          size: 100,
+        ),
+      ),
+    );
   }
 }

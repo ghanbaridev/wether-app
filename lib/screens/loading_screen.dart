@@ -42,11 +42,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: SpinKitRing(
-          color: Colors.red,
-          size: 100,
-        ),
+      body: Column(
+        children: [
+          Text(
+            "Welcome",
+            style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+          ),
+          SpinKitRing(
+            color: Colors.red,
+            size: 100,
+          ),
+        ],
       ),
     );
   }

@@ -1,14 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:wettherapp/utilities/constants.dart';
-
+import 'package:wettherapp/services/weather.dart';
 import '../utilities/constants.dart';
 
 class LocationScreen extends StatefulWidget {
+  LocationScreen({this.locationwether});
+  final locationwether;
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
+  WeatherModel Wether = WeatherModel();
+  int? temp;
+  String? wethericon;
+  String? cityname;
+  String? massage;
+
+  @override
+  void initState() {
+    updateui(widget.locationwether);
+    super.initState();
+  }
+
+  void updateui(dynamic wether) {
+    setState(() {
+      double temp1 = wether['main']['temp'];
+      temp = temp1.toInt();
+      massage = Wether.getMessage(temp1.toInt());
+      var condition = wether['weather'][0]['id'];
+      wethericon = Wether.getWeatherIcon(condition);
+      cityname = wether['name'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,11 +76,11 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '32°',
+                      '$temp°',
                       style: kTempTextStyle,
                     ),
                     Text(
-                      '☀️',
+                      "$wethericon",
                       style: kConditionTextStyle,
                     ),
                   ],
@@ -64,7 +89,7 @@ class _LocationScreenState extends State<LocationScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 15.0),
                 child: Text(
-                  "It's 🍦 time in San Francisco!",
+                  "$massage in $cityname",
                   textAlign: TextAlign.right,
                   style: kMessageTextStyle,
                 ),
@@ -76,3 +101,6 @@ class _LocationScreenState extends State<LocationScreen> {
     );
   }
 }
+//  double temp = decodedata(data)['main']['temp'];
+//     int condition = decodedata(data)['weather'][0]['id'];
+//     String cityname = decodedata(data)['name'];

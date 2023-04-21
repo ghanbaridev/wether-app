@@ -83,6 +83,10 @@ class _LocationScreenState extends State<LocationScreen> {
                           },
                         ),
                       );
+                      if (typedname != null) {
+                        var wetherdata = Wether.getcitylovation(typedname);
+                        updateui(wetherdata);
+                      }
                     },
                     child: Icon(
                       Icons.location_city,

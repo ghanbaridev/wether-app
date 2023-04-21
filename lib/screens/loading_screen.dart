@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wettherapp/screens/location_screen.dart';
-import 'package:wettherapp/services/location.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:wettherapp/services/networking.dart';
-
-const apikey = "7b114153676f091855ed68761b553c29";
+import 'package:wettherapp/services/weather.dart';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -22,14 +19,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   void getlocationdata() async {
-    location locat = location();
-    await locat.getcurrentlocation();
-    latitude = locat.latitude;
-    longitude = locat.longitde;
-    Netwoekhelper netwoekhelper = Netwoekhelper(
-        "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apikey&units=metric");
-
-    var wetherdata = await netwoekhelper.getdata();
+    WeatherModel wether = WeatherModel();
+    var wetherdata = await wether.getlocationwether();
 
     Navigator.push(
       context,

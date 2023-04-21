@@ -5,7 +5,8 @@ The first page is a welcome page that also takes your location.
 
 The second page is the main page of the program, which shows the temperature of your location. Also, on this page, on the left side, there is an icon that takes your current location and shows it to the program. It takes the third page.
 
-![Screenshot 2023-04-21 161753](https://user-images.githubusercontent.com/104554904/233641796-6eeac937-f799-487f-ad8c-2c3ef38881f3.png)
+![Screenshot 2023-04-21 163240](https://user-images.githubusercontent.com/104554904/233642868-7d2296a4-445b-42b0-8ad3-a9e5ac7f1349.png)
+
 
 On the third page, you can enter a desired city and add it to the program and see the temperature.
 

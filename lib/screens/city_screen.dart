@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:wettherapp/screens/location_screen.dart';
 import 'package:wettherapp/utilities/constants.dart';
 
 import '../utilities/constants.dart';
@@ -11,6 +12,7 @@ class CityScreen extends StatefulWidget {
 }
 
 class _CityScreenState extends State<CityScreen> {
+  String? Cityname;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +30,9 @@ class _CityScreenState extends State<CityScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   child: Icon(
                     Icons.arrow_back_ios,
                     size: 50.0,
@@ -40,11 +44,15 @@ class _CityScreenState extends State<CityScreen> {
                 child: TextField(
                   style: TextStyle(color: Colors.black),
                   decoration: textfileddecoration,
-                  onChanged: (value) {},
+                  onChanged: (value) {
+                    Cityname = value;
+                  },
                 ),
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context, Cityname);
+                },
                 child: Text(
                   'Get Weather',
                   style: kButtonTextStyle,

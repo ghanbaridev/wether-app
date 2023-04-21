@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wettherapp/screens/city_screen.dart';
 import 'package:wettherapp/utilities/constants.dart';
 import 'package:wettherapp/services/weather.dart';
 import '../utilities/constants.dart';
@@ -12,7 +13,7 @@ class LocationScreen extends StatefulWidget {
 
 class _LocationScreenState extends State<LocationScreen> {
   WeatherModel Wether = WeatherModel();
-  int? temp;
+  int? temp2;
   String? wethericon;
   String? cityname;
   String? massage;
@@ -25,9 +26,16 @@ class _LocationScreenState extends State<LocationScreen> {
 
   void updateui(dynamic wether) {
     setState(() {
+      if (wether == null) {
+        temp2 = 0;
+        wethericon = "Error:(";
+        massage = "Unable to locate the city:((";
+        cityname = "";
+        return;
+      }
       double temp1 = wether['main']['temp'];
-      temp = temp1.toInt();
-      massage = Wether.getMessage(temp1.toInt());
+      temp2 = temp1.toInt();
+      massage = Wether.getMessage(temp2!);
       var condition = wether['weather'][0]['id'];
       wethericon = Wether.getWeatherIcon(condition);
       cityname = wether['name'];
@@ -56,14 +64,24 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      var wetherdata = await Wether.getlocationwether();
+                      updateui(wetherdata);
+                    },
                     child: Icon(
                       Icons.near_me,
                       size: 50.0,
                     ),
                   ),
                   FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          CityScreen();
+                        }),
+                      );
+                    },
                     child: Icon(
                       Icons.location_city,
                       size: 50.0,
@@ -76,7 +94,7 @@ class _LocationScreenState extends State<LocationScreen> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      '$temp°',
+                      '$temp2°',
                       style: kTempTextStyle,
                     ),
                     Text(

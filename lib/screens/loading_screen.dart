@@ -27,14 +27,16 @@ class _LoadingScreenState extends State<LoadingScreen> {
     latitude = locat.latitude;
     longitude = locat.longitde;
     Netwoekhelper netwoekhelper = Netwoekhelper(
-        "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apikey");
+        "https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=$apikey&units=metric");
 
     var wetherdata = await netwoekhelper.getdata();
 
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
-        return LocationScreen();
+        return LocationScreen(
+          locationwether: wetherdata,
+        );
       }),
     );
   }
@@ -43,10 +45,14 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             "Welcome",
             style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 30,
           ),
           SpinKitRing(
             color: Colors.red,
